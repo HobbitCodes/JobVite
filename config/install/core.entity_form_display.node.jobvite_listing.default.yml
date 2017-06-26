@@ -1,0 +1,62 @@
+# core.entity_form_display.node.jobvite_listing.default.yml
+langcode: en
+status: true
+dependencies:
+    config:
+        - field.field.node.jobvite_listing.field_jobvite_reference
+        - field.field.node.jobvite_listing.body
+        - field.field.node.jobvite_listing.field_jobvite_location
+        - field.field.node.jobvite_listing.field_jobvite_category_new
+        - field.field.node.jobvite_listing.field_jobvite_department
+        - node.type.jobvite_listing
+    module:
+        - text
+        - user
+id: node.jobvite_listing.default
+targetEntityType: node
+bundle: jobvite_listing
+mode: default
+content:
+    field_jobvite_reference:
+        label: hidden
+        type: string_textfield
+        weight: 100
+        settings: {  }
+        third_party_settings: {  }
+    body:
+        label: hidden
+        type: text_textarea_with_summary
+        weight: 101
+        settings: {  }
+        third_party_settings: {  }
+    field_jobvite_location:
+        label: hidden
+        type: string_textfield
+        weight: 102
+        settings: {  }
+        third_party_settings: {  }
+    field_jobvite_department:
+        weight: 103
+        settings:
+          match_operator: CONTAINS
+          size: 60
+          placeholder: ''
+        third_party_settings: {  }
+        type: entity_reference_autocomplete
+    field_jobvite_category_new:
+        weight: 103
+        settings:
+          match_operator: CONTAINS
+          size: 60
+          placeholder: ''
+        third_party_settings: {  }
+        type: entity_reference_autocomplete
+    sticky:
+        type: boolean_checkbox
+        settings:
+          display_label: true
+        weight: 104
+        third_party_settings: {  }
+    links:
+        weight: 105
+hidden: {  }

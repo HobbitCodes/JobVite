@@ -1,0 +1,4 @@
+administer jobvite:
+  description: 'Administer Jobvite settings.'
+  title: 'Administer Jobvite settings'
+  restrict access: FALSE

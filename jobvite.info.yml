@@ -1,0 +1,5 @@
+name: 'Jobvite'
+type: module
+core: '8.x'
+description: 'Integration module for Jobvite'
+package: 'Custom Modules'

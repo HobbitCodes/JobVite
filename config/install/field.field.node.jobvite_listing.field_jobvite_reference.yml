@@ -1,0 +1,22 @@
+# field.field.node.jobvite_listing.field_reference.yml
+langcode: en
+status: true
+dependencies:
+    config:
+        - field.storage.node.field_jobvite_reference
+        - node.type.jobvite_listing
+    module:
+        - text
+id: node.jobvite_listing.field_jobvite_reference
+field_name: field_jobvite_reference
+entity_type: node
+bundle: jobvite_listing
+label: Job Reference
+description: 'Job Reference.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+    display_summary: true
+field_type: text

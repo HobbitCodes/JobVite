@@ -1,0 +1,22 @@
+# field.field.node.jobvite_listing.body.yml
+langcode: en
+status: true
+dependencies:
+    config:
+        - field.storage.node.body
+        - node.type.jobvite_listing
+    module:
+        - text
+id: node.jobvite_listing.body
+field_name: body
+entity_type: node
+bundle: jobvite_listing
+label: Body
+description: 'Body of the job description.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+    display_summary: true
+field_type: text_with_summary

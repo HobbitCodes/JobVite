@@ -1,0 +1,27 @@
+# core.entity_view_display.node.jobvite_listing.default.yml
+langcode: en
+status: true
+dependencies:
+    config:
+        - field.field.node.jobvite_listing.field_jobvite_reference
+        - field.field.node.jobvite_listing.body
+        - field.field.node.jobvite_listing.field_jobvite_location
+        - field.field.node.jobvite_listing.field_jobvite_category_new
+        - node.type.jobvite_listing
+    module:
+        - text
+        - user
+id: node.jobvite_listing.default
+targetEntityType: node
+bundle: jobvite_listing
+mode: default
+content:
+    body:
+        label: hidden
+        type: text_default
+        weight: 101
+        settings: {  }
+        third_party_settings: {  }
+    links:
+        weight: 100
+hidden: {  }

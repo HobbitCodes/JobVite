@@ -1,0 +1,19 @@
+# field.storage.node.field_jobvite_department.yml
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.jobvite_listing
+  module:
+    - node
+id: node.field_jobvite_department
+field_name: field_jobvite_department
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false

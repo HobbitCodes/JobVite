@@ -1,0 +1,14 @@
+# node.type.jobvite_listing.yml
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - jobvite
+name: 'Jobvite Listing'
+type: jobvite_listing
+description: 'Content type for the Jobvite listing items'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: true

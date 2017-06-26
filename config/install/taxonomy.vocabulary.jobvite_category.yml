@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - jobvite
+name: Jobvite Categories
+vid: jobvite_category
+description: 'Stores the categories for Jobvite Module'
+hierarchy: 0
+weight: 0

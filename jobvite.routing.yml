@@ -1,0 +1,22 @@
+jobvite.admin_settings:
+  path: 'admin/config/services/jobvite'
+  defaults:
+    _form: 'Drupal\jobvite\Form\JobviteSettingsForm'
+    _title: 'Jobvite settings'
+  requirements:
+    _permission: 'administer jobvite'
+
+jobvite.admin_run:
+  path: 'admin/config/services/jobvite/run'
+  defaults:
+    _form: 'Drupal\jobvite\Form\JobviteRunForm'
+    _title: 'Jobvite run'
+  requirements:
+    _permission: 'administer jobvite'
+
+mymodule.autocomplete:
+  path: '/jobvite/autocomplete'
+  defaults:
+    _controller: 'Drupal\jobvite\Controller\JobviteController::autocomplete'
+  requirements:
+    _permission: 'access content'

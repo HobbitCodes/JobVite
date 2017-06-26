@@ -1,0 +1,13 @@
+jobvite.admin:
+  title: 'Jobvite settings'
+  description: 'Jobvite Settings page'
+  parent: system.admin_config_development
+  route_name: jobvite.admin_settings
+  weight: 100
+
+jobvite.admin_run:
+  title: 'Jobvite Run'
+  description: 'Jobvite manual run page'
+  parent: system.admin_config_development
+  route_name: jobvite.admin_run
+  weight: 101

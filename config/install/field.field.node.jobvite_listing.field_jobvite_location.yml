@@ -1,0 +1,22 @@
+# field.field.node.jobvite_listing.field_location.yml
+langcode: en
+status: true
+dependencies:
+    config:
+        - field.storage.node.field_jobvite_location
+        - node.type.jobvite_listing
+    module:
+        - text
+id: node.jobvite_listing.field_jobvite_location
+field_name: field_jobvite_location
+entity_type: node
+bundle: jobvite_listing
+label: Location
+description: 'Job Location.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+    display_summary: true
+field_type: text

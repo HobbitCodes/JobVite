@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - jobvite
+name: Jobvite Departments
+vid: jobvite_department
+description: 'Stores the departments for Jobvite Module'
+hierarchy: 0
+weight: 0

@@ -1,0 +1,28 @@
+# field.field.node.jobvite_listing.field_jobvite_category_new.yml
+langcode: en
+status: true
+dependencies:
+    config:
+        - field.storage.node.field_jobvite_category_new
+        - node.type.jobvite_listing
+    module:
+        - text
+id: node.jobvite_listing.field_jobvite_category_new
+field_name: field_jobvite_category_new
+entity_type: node
+bundle: jobvite_listing
+label: 'Job Category'
+description: 'Job Category.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      jobvite: jobvite
+    sort:
+      field: _none
+    auto_create: true
+field_type: entity_reference

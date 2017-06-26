@@ -1,0 +1,39 @@
+jobvite.settings:
+  type: config_object
+  mapping:
+    jobvite_api:
+      type: string
+      label: 'Api key'
+    jobvite_secret_key:
+      type: string
+      label: 'Secret key for Jobvite'
+    jobvite_company_id:
+      type: string
+      label: 'Company ID'
+    jobvite_result_count:
+      type: string
+      label: 'Number of job requested'
+    jobvite_cron_interval:
+      type: string
+      label: 'Time interval for Jobvite'
+    jobvite_json_feed_url:
+      type: string
+      label: 'URL of the job feed'
+    jobvite_path_prefix:
+      type: string
+      label: 'Prefix for the path of job page'
+    jobvite_job_type:
+      type: string
+      label: 'Job type'
+    jobvite_job_category:
+      type: string
+      label: 'Category of job'
+    jobvite_job_department:
+      type: string
+      label: 'Department'
+    jobvite_job_location:
+      type: string
+      label: 'Location for jobs'
+    jobvite_job_region:
+      type: string
+      label: 'Region for jobs'

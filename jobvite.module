@@ -1,0 +1,197 @@
+<?php
+
+/**
+ * @file
+ * Theme functions and (pre)process callbacks for the Jobvite module.
+ */
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+use GuzzleHttp\Exception\RequestException;
+
+/**
+ * Implements hook_cron().
+ */
+function jobvite_cron()
+{
+    $url = "https://api.jobvite.com/api/v2/job?api=segauk_api_key&sc=9f979f54d0cd2fcfa53a665a9fe4faa8&locName=Creative Assembly";
+
+    // Make a request to the Jobvite API.
+
+    // Get all job posts
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadByProperties(["type" => "jobvite_listing"]);
+
+    $currentJobs = array();
+
+    foreach ($entities as $jobPost) {
+        $currentJobs[$jobPost->field_jobvite_reference->value] = $jobPost;
+    }
+
+    try {
+        $response = \Drupal::httpClient()->get($url, array('headers' => array('Accept' => 'text/plain')));
+        $data = json_decode($response->getBody());
+
+        if (empty($data)) {
+            return FALSE;
+        } else {
+
+            foreach ($data->requisitions as $job) {
+
+                // Create node object with attached file.
+
+                if (!isset($job->category) || $job->category == "") {
+                    $job->category = "None set";
+                }
+
+                $query = \Drupal::entityQuery('taxonomy_term');
+                $query->condition('vid', "jobvite_category");
+                $query->condition('name', $job->category);
+                $tids = $query->execute();
+
+                if (count($tids) == 0) {
+                    $category = Term::create([
+                        'name' => $job->category,
+                        'vid' => 'jobvite_category',
+                    ])->save();
+
+                    $query = \Drupal::entityQuery('taxonomy_term');
+                    $query->condition('vid', "jobvite_category");
+                    $query->condition('name', $job->category);
+                    $tids = $query->execute();
+
+                    foreach ($tids as $tid) {
+                        $cat = $tid;
+                    }
+                } else {
+                    foreach ($tids as $tid) {
+                        $cat = $tid;
+                    }
+                }
+
+                if (!isset($job->department) || $job->department == "") {
+                    $job->department = "None set";
+                }
+
+                $query = \Drupal::entityQuery('taxonomy_term');
+                $query->condition('vid', "jobvite_department");
+                $query->condition('name', $job->department);
+                $tids = $query->execute();
+
+
+                if (count($tids) == 0) {
+
+                    $department = Term::create([
+                        'name' => (isset($job->department) && $job->department != "" ? $job->department : "None set"),
+                        'vid' => 'jobvite_department',
+                    ])->save();
+
+                    $query = \Drupal::entityQuery('taxonomy_term');
+                    $query->condition('vid', "jobvite_department");
+                    $query->condition('name', $job->department);
+                    $tids = $query->execute();
+
+                    foreach ($tids as $tid) {
+                        $dept = $tid;
+                    }
+                } else {
+                    foreach ($tids as $tid) {
+                        $dept = $tid;
+                    }
+                }
+
+                if (array_key_exists($job->eId, $currentJobs)) {
+
+                    $node = Node::load($currentJobs[$job->eId]->nid->value);
+
+                    $node->body->value = $job->description;
+                    $node->body->format = 'full_html';
+
+                    $node->set('field_apply_link', $job->applyLink);
+
+                    $node->save();
+
+                    unset($currentJobs[$job->eId]);
+
+                } else {
+                    $jobListing = Node::create(
+                        [
+                            'type' => 'jobvite_listing',
+                            'path' => ['alias' => '/careers/view/' . slugify($job->title) . '/' . $job->eId],
+                            'body' => ['value' => $job->description, 'format' => 'full_html'],
+                        ]);
+                    $jobListing->set('title', $job->title);
+                    $jobListing->set('field_jobvite_reference', $job->eId);
+                    $jobListing->set('field_jobvite_location', $job->location);
+                    $jobListing->set('field_jobvite_category_new', $cat);
+                    $jobListing->set('field_jobvite_department', $dept);
+                    $jobListing->set('field_apply_link', $job->applyLink);
+
+                    $jobListing->enforceIsNew();
+                    $jobListing->save();
+                }
+
+            }
+
+            $storage_handler->delete($currentJobs);
+
+        }
+    } catch (RequestException $e) {
+        watchdog_exception('jobvite', $e);
+    }
+}
+
+/**
+ * Prepare variables for the job template.
+ *
+ * @see jobvite.tpl.php
+ */
+function template_preprocess_jobvite_job(&$variables)
+{
+    $job = $variables['job'];
+    $location = explode(',', $job->location);
+
+    if (count($location) == 3) {
+        array_splice($location, 1, 1);
+        $job->location = implode(',', $location);
+    }
+
+    $variables += jobvite_prepare_job_for_template($job);
+}
+
+/**
+ * Prepare variables for the jobs template.
+ *
+ * @see jobvites.tpl.php
+ */
+function template_preprocess_jobvite_jobs_list(&$variables)
+{
+    $variables['raw_jobs'] = $variables['jobs'];
+    $variables['jobs'] = array_map('jobvite_prepare_job_for_template', $variables['jobs']);
+}
+
+function slugify($text)
+{
+    // replace non letter or digits by -
+    $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+    // transliterate
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+    // remove unwanted characters
+    $text = preg_replace('~[^-\w]+~', '', $text);
+
+    // trim
+    $text = trim($text, '-');
+
+    // remove duplicate -
+    $text = preg_replace('~-+~', '-', $text);
+
+    // lowercase
+    $text = strtolower($text);
+
+    if (empty($text)) {
+        return 'n-a';
+    }
+
+    return $text;
+}
