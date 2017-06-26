@@ -1,3 +1,6 @@
+This is the Drupal 8 implementation of the JobVite module.
+
+
 JobVite integration
 ===================
 
