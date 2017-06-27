@@ -149,6 +149,13 @@ class JobviteController extends ControllerBase
         ));
     }
 
+    /**
+     * Custom - for use when creating a custom search form
+     *
+     * TODO: might not be needed in final release as already built into Drupal Views
+     *
+     * @return JsonResponse
+     */
     public function autocomplete()
     {
         $matches = array();

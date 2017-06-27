@@ -195,6 +195,14 @@ class JobviteRunForm extends ConfigFormBase
         parent::submitForm($form, $form_state);
     }
 
+    /**
+     * URL slug generator
+     *
+     * TODO: this is used elsewhere - make global helper
+     *
+     * @param $text
+     * @return string
+     */
     public function slugify($text)
     {
         // replace non letter or digits by -

@@ -7,6 +7,10 @@ use Drupal\Core\Entity\EntityListBuilder;
 
 /**
  * Provides a listing of Example.
+ *
+ * File not currently in use
+ *
+ * TODO: create custom listing page for Jobs
  */
 class JobviteListBuilder extends EntityListBuilder {
 
