@@ -196,7 +196,6 @@ class JobviteController extends ControllerBase
         return new JsonResponse($matches);
     }
 
-
     function cutText($text, $max_char, $mode = 2)
     {
         if ($mode == 1) {
