@@ -13,7 +13,9 @@ use GuzzleHttp\Exception\RequestException;
  */
 function jobvite_cron()
 {
-    $url = "https://api.jobvite.com/api/v2/job?api=segauk_api_key&sc=9f979f54d0cd2fcfa53a665a9fe4faa8&locName=Creative Assembly";
+    $url = $this->config('jobvite.settings')->get("jobvite_json_feed_url");
+
+    $url = $url . "?api=" . $this->config('jobvite.settings')->get('jobvite_api') . "&sc=" . $this->config('jobvite.settings')->get('jobvite_secret_key') . "&locName=" . $this->config('jobvite.settings')->get("jobvite_job_location");
 
     // Make a request to the Jobvite API.
 

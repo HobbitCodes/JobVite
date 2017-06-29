@@ -67,7 +67,7 @@ class JobviteRunForm extends ConfigFormBase
 
         $url = $this->config('jobvite.settings')->get("jobvite_json_feed_url");
 
-        $url = $url . "?api=" . $this->config('jobvite.settings')->get('jobvite_api') . "&sc=" . $this->config('jobvite.settings')->get('jobvite_secret_key') . "&locName=Creative Assembly";
+        $url = $url . "?api=" . $this->config('jobvite.settings')->get('jobvite_api') . "&sc=" . $this->config('jobvite.settings')->get('jobvite_secret_key') . "&locName=" . $this->config('jobvite.settings')->get("jobvite_job_location");
 
         // Make a request to the Jobvite API.
 
